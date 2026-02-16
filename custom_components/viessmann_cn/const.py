@@ -1,5 +1,9 @@
 """Constants for Viessmann API."""
 
+DOMAIN = "vicare"
+CONF_USERNAME = "username"
+CONF_PASSWORD = "password"
+
 API_BASE_URL = "https://api.viessmann.cn"
 
 # Endpoints

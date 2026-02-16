@@ -239,20 +239,7 @@ class ViessmannClient:
         # Get detail
         detail = await self.get_device_detail()
 
-        # Parse relevant data for HASS
-        status = {
-            "physics_id": self._physics_id,
-            "online": detail.get("isNetwork") == "1"
-            or True,  # HAR says null, assume true if we get data
-            "heating_temp": detail.get("boilerRequestData", {}).get("chSet"),
-            "dhw_temp": detail.get("boilerRequestData", {}).get("dhwSet"),
-            "mode": detail.get("boilerRequestData", {}).get("mode"),
-            "current_temp": detail.get("boilerRequestData", {}).get(
-                "chSet"
-            ),  # Often current temp isn't shown, using set as placeholder
-            "fault": detail.get("faultStatus"),
-        }
-        return status
+        return detail
 
     async def close(self):
         """Close the session."""
