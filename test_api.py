@@ -43,6 +43,56 @@ async def main():
         print("Current Status:")
         print(status)
 
+        print("Getting scan status...")
+        scan_status = await client.get_scan_status()
+        print("Scan Status:")
+        print(scan_status)
+
+        # Interactive control
+        while True:
+            print("Select an action:")
+            print("1. Set Heating Temperature")
+            print("2. Set DHW Temperature")
+            print("3. Set Mode")
+            print("4. Refresh Status")
+            print("q. Quit")
+
+            choice = input("Enter choice: ")
+
+            if choice == "q":
+                break
+
+            try:
+                if choice == "1":
+                    temp = float(input("Enter heating temperature: "))
+                    print(f"Setting heating temperature to {temp}...")
+                    await client.set_heating_temp(temp)
+                    print("Done.")
+                elif choice == "2":
+                    temp = float(input("Enter DHW temperature: "))
+                    print(f"Setting DHW temperature to {temp}...")
+                    await client.set_dhw_temp(temp)
+                    print("Done.")
+                elif choice == "3":
+                    print(
+                        "Common modes: 10 (Standby/Off), 15 (DHW only), 20 (Heating+DHW)"
+                    )
+                    mode = int(input("Enter mode: "))
+                    print(f"Setting mode to {mode}...")
+                    await client.set_mode(mode)
+                    print("Done.")
+                elif choice == "4":
+                    print("Refreshing status...")
+                    status = await client.update()
+                    print("Current Status:")
+                    print(status)
+                else:
+                    print("Invalid choice")
+            except ValueError:
+                print("Invalid input value")
+            except Exception as e:
+                print(f"Operation failed: {e}")
+
     except AuthError as e:
         print(f"Authentication failed: {e}")
     except Exception as e:

@@ -8,6 +8,7 @@ ENDPOINT_USER_INFO = "/idass/user/info"
 ENDPOINT_FAMILY_LIST = "/api/family/list"
 ENDPOINT_FAMILY_DEVICES = "/api/home/familyDevices/v2"
 ENDPOINT_DEVICE_DETAIL = "/api/device/detail"
+ENDPOINT_SCAN_STATUS = "/api/device/scanStatus"
 
 # Control Endpoints
 ENDPOINT_SET_CH_TEMP = "/api/3/sendToDevice/setChsetTemp"

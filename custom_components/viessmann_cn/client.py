@@ -9,6 +9,7 @@ from .const import (
     ENDPOINT_FAMILY_LIST,
     ENDPOINT_FAMILY_DEVICES,
     ENDPOINT_DEVICE_DETAIL,
+    ENDPOINT_SCAN_STATUS,
     ENDPOINT_SET_CH_TEMP,
     ENDPOINT_SET_DHW_TEMP,
     ENDPOINT_SET_MODE,
@@ -182,6 +183,20 @@ class ViessmannClient:
 
         payload = {"physicsId": self._physics_id}
         resp = await self._request("POST", ENDPOINT_DEVICE_DETAIL, data=payload)
+
+        # The response is a list, usually one item
+        data = resp.get("data", [])
+        if data:
+            return data[0]
+        return {}
+
+    async def get_scan_status(self) -> Dict:
+        """Get scan status of the device."""
+        if not self._physics_id:
+            await self.get_family_devices()
+
+        payload = {"physicsId": self._physics_id}
+        resp = await self._request("POST", ENDPOINT_SCAN_STATUS, data=payload)
 
         # The response is a list, usually one item
         data = resp.get("data", [])
