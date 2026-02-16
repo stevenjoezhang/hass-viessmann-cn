@@ -209,7 +209,8 @@ class ViessmannClient:
         if not self._physics_id:
             await self.get_family_devices()
 
-        payload = {"physicsIds": self._physics_id, "temp": str(temp)}
+        # API expects integer string for temperature
+        payload = {"physicsIds": self._physics_id, "temp": str(int(temp))}
         await self._request("POST", ENDPOINT_SET_CH_TEMP, data=payload)
 
     async def set_dhw_temp(self, temp: float) -> None:
@@ -217,7 +218,8 @@ class ViessmannClient:
         if not self._physics_id:
             await self.get_family_devices()
 
-        payload = {"physicsIds": self._physics_id, "temp": str(temp)}
+        # API expects integer string for temperature
+        payload = {"physicsIds": self._physics_id, "temp": str(int(temp))}
         await self._request("POST", ENDPOINT_SET_DHW_TEMP, data=payload)
 
     async def set_mode(self, mode: int) -> None:
